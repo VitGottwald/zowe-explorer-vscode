@@ -77,11 +77,9 @@ export class Profiles extends ProfilesCache {
      * contents will be loaded.
      */
     public async getProfileInfo(): Promise<imperative.ProfileInfo> {
-        ZoweLogger.trace("Profiles.getProfileInfo called.");
+        ZoweLogger.trace(`Profiles.getProfileInfo called.`);
         if (this.mProfileInfo == null) {
             this.mProfileInfo = await super.getProfileInfo();
-            // Cache profile info object until current thread is done executing
-            setImmediate(() => (this.mProfileInfo = null));
         }
         return this.mProfileInfo;
     }
