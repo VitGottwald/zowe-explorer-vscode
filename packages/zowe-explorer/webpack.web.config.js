@@ -44,12 +44,14 @@ const config = (mode) => ({
         fallback: {
             child_process: path.resolve(__dirname, "src/web/polyfills/child_process.js"),
             fs: path.resolve(__dirname, "src/web/polyfills/fs.js"),
+            // fs: require.resolve("browserify-fs"),
             net: path.resolve(__dirname, "src/web/polyfills/net.js"),
             readline: path.resolve(__dirname, "src/web/polyfills/readline.js"),
             tls: path.resolve(__dirname, "src/web/polyfills/tls.js"),
             dns: path.resolve(__dirname, "src/web/polyfills/dns.js"),
             zlib: path.resolve(__dirname, "src/web/polyfills/zlib.js"),
             crypto: path.resolve(__dirname, "src/web/polyfills/crypto.js"),
+            process: require.resolve("process/browser"),
         },
     },
     watchOptions: {
