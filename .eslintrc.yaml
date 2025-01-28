@@ -12,12 +12,14 @@ ignorePatterns:
     "**/__mocks__",
     "**/lib",
     "webpack.config.js",
+    "webpack.web.config.js",
     "**/*wdio.conf.ts",
     "**/features/",
     "samples/__integration__/",
     "**/out",
     "**/results",
     "**/src/webviews",
+    "**/src/web/polyfills"
   ]
 overrides:
   - files: "**/__tests__/**"
