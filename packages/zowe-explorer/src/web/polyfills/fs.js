@@ -1,4 +1,4 @@
-const fs = require("browserify-fs");
+const zenfs = require("@zenfs/core");
 
 const fsPolyfill = {};
 
@@ -87,15 +87,7 @@ const methods = [
 methods.forEach((method) => {
     fsPolyfill[method] = function (...args) {
         console.log(`fs.${method} called with arguments:`, args);
-        // For methods that typically return synchronously, return an empty result
-        if (method.endsWith("Sync")) {
-            return method.startsWith("read") ? "" : undefined;
-        }
-        // For async methods, call the last argument if it's a function (callback)
-        const callback = args[args.length - 1];
-        if (typeof callback === "function") {
-            callback(null, method.startsWith("read") ? "" : undefined);
-        }
+        return zenfs[method](...args);
     };
 });
 
@@ -118,4 +110,4 @@ fsPolyfill.constants = {
     X_OK: 1,
 };
 
-module.exports = { ...fsPolyfill, ...fs };
+module.exports = fsPolyfill;
