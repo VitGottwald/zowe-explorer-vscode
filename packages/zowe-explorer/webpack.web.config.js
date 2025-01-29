@@ -15,7 +15,6 @@
 
 const path = require("path");
 const webpack = require("webpack");
-const fs = require("fs");
 const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
@@ -44,7 +43,6 @@ const config = (mode) => ({
         fallback: {
             child_process: path.resolve(__dirname, "src/web/polyfills/child_process.js"),
             fs: path.resolve(__dirname, "src/web/polyfills/fs.js"),
-            // fs: require.resolve("browserify-fs"),
             net: path.resolve(__dirname, "src/web/polyfills/net.js"),
             readline: path.resolve(__dirname, "src/web/polyfills/readline.js"),
             tls: path.resolve(__dirname, "src/web/polyfills/tls.js"),
