@@ -48,7 +48,7 @@ export namespace ZoweExplorerZosmf {
             return ProfilesCache.getProfileSessionWithVscProxy(sessionToUse);
         }
 
-        public getSession(profile?: imperative.IProfileLoaded): imperative.Session {
+        public getSession(profile?: imperative.IProfileLoaded): imperative.AbstractSession {
             if (!this.session) {
                 try {
                     this.session = this._getSession(profile || this.profile);
@@ -90,7 +90,24 @@ export namespace ZoweExplorerZosmf {
             // This API call is specific for z/OSMF profiles
             if (profileType === "zosmf") {
                 const validateSession = this._getSession(validateProfile);
-                const sessionStatus = await zosmf.CheckStatus.getZosmfInfo(validateSession);
+                const response = await fetch(
+                    `https://${validateSession.ISession.hostname}:${validateSession.ISession.port}/${validateSession.ISession.basePath}/zosmf/info`,
+                    {
+                        headers: {
+                            authorization: `Basic ${validateSession.ISession.base64EncodedAuth}`,
+                            "x-csrf-zosmf-header": "true",
+                        },
+                        referrer: "",
+                        referrerPolicy: "strict-origin-when-cross-origin",
+                        body: null,
+                        method: "GET",
+                        mode: "cors",
+                        credentials: "include",
+                    }
+                );
+
+                // const original = await zosmf.CheckStatus.getZosmfInfo(validateSession);
+                const sessionStatus = await response.json();
 
                 if (sessionStatus) {
                     return "active";
@@ -247,8 +264,32 @@ export namespace ZoweExplorerZosmf {
      * An implementation of the Zowe Explorer MVS API interface for zOSMF.
      */
     export class MvsApi extends CommonApi implements MainframeInteraction.IMvs {
-        public dataSet(filter: string, options?: zosfiles.IListOptions): Promise<zosfiles.IZosFilesResponse> {
-            return zosfiles.List.dataSet(this.getSession(), filter, { responseTimeout: this.profile?.profile?.responseTimeout, ...options });
+        public async dataSet(filter: string, options?: zosfiles.IListOptions): Promise<zosfiles.IZosFilesResponse> {
+            const session = this.getSession();
+            const response = await fetch(
+                `https://${session.ISession.hostname}:${session.ISession.port}/${session.ISession.basePath}/zosmf/restfiles/ds?dslevel=${filter}`,
+                {
+                    headers: {
+                        authorization: `Basic ${session.ISession.base64EncodedAuth}`,
+                        "x-csrf-zosmf-header": "true",
+                        "x-ibm-attributes": "base",
+                        "x-ibm-max-items": "0",
+                    },
+                    referrer: "",
+                    referrerPolicy: "strict-origin-when-cross-origin",
+                    body: null,
+                    method: "GET",
+                    mode: "cors",
+                    credentials: "include",
+                }
+            );
+
+            return {
+                apiResponse: response.json(),
+                commandResponse: "",
+            };
+
+            // return zosfiles.List.dataSet(this.getSession(), filter, { responseTimeout: this.profile?.profile?.responseTimeout, ...options });
         }
 
         public allMembers(dataSetName: string, options?: zosfiles.IListOptions): Promise<zosfiles.IZosFilesResponse> {

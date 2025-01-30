@@ -113,6 +113,17 @@ fsPolyfill.constants = {
     X_OK: 1,
 };
 zenfs.mkdirSync("/.zowe");
+zenfs.mkdirSync("/.zowe/settings");
+zenfs.writeFileSync(
+    "/.zowe/settings/imperative.json",
+    `
+{
+  "overrides": {
+    "CredentialManager": "@zowe/cli"
+  }
+}
+    `
+);
 zenfs.writeFileSync(
     "/.zowe/zowe.config.json",
     `
@@ -125,10 +136,7 @@ zenfs.writeFileSync(
                 "host": "usilca32.lvn.broadcom.net",
                 "port": 60154,
                 "tokenType": "apimlAuthenticationToken"
-            },
-            "secure": [
-                "tokenValue"
-            ]
+            }
         },
         "dev": {
             "type": "base",
@@ -137,10 +145,7 @@ zenfs.writeFileSync(
                 "port": 7554,
                 "rejectUnauthorized": true,
                 "tokenType": "apimlAuthenticationToken"
-            },
-            "secure": [
-                "tokenValue"
-            ]
+            }
         },
         "endevor": {
             "type": "endevor",
@@ -152,10 +157,7 @@ zenfs.writeFileSync(
             "type": "zosmf",
             "properties": {
                 "basePath": "ibmzosmf/api/v1"
-            },
-            "secure": [
-                "tokenValue"
-            ]
+            }
         }
     },
     "defaults": {
