@@ -92,7 +92,7 @@ export class ProfilesUtils {
      */
     public static updateCredentialManagerSetting(credentialManager?: string | false): void {
         ZoweLogger.trace("ProfilesUtils.updateCredentialManagerSetting called.");
-        const currentProfileSecurity = ProfilesUtils.PROFILE_SECURITY;
+        // const currentProfileSecurity = ProfilesUtils.PROFILE_SECURITY;
         const settingEnabled: boolean = SettingsConfig.getDirectValue(Constants.SETTINGS_SECURE_CREDENTIALS_ENABLED, true);
         const defaultCredentialManagerFound = ProfilesUtils.checkDefaultCredentialManager();
         if (settingEnabled && credentialManager) {
@@ -105,9 +105,9 @@ export class ProfilesUtils {
             ProfilesUtils.PROFILE_SECURITY = Constants.ZOWE_CLI_SCM;
             ZoweLogger.info(vscode.l10n.t(`Zowe Explorer profiles are being set as secured.`));
         }
-        if (currentProfileSecurity !== ProfilesUtils.PROFILE_SECURITY) {
-            imperative.CredentialManagerOverride.recordCredMgrInConfig(ProfilesUtils.PROFILE_SECURITY);
-        }
+        // if (currentProfileSecurity !== ProfilesUtils.PROFILE_SECURITY) {
+        //     imperative.CredentialManagerOverride.recordCredMgrInConfig(ProfilesUtils.PROFILE_SECURITY);
+        // }
     }
 
     /**
@@ -184,17 +184,7 @@ export class ProfilesUtils {
     }
 
     public static checkDefaultCredentialManager(): boolean {
-        try {
-            ProfilesCache.requireKeyring();
-        } catch (_error) {
-            ZoweLogger.info(
-                vscode.l10n.t(
-                    "Default Zowe credentials manager not found on current platform. This is typically the case when running in container-based environments or Linux systems that miss required security libraries or user permissions."
-                )
-            );
-            return false;
-        }
-        return true;
+        return false;
     }
 
     /**
