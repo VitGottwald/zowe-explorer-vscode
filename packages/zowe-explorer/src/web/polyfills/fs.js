@@ -135,7 +135,8 @@ zenfs.writeFileSync(
             "properties": {
                 "host": "usilca32.lvn.broadcom.net",
                 "port": 60154,
-                "tokenType": "apimlAuthenticationToken"
+                "tokenType": "apimlAuthenticationToken",
+                "protocol": "https"
             }
         },
         "dev": {

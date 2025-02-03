@@ -453,7 +453,7 @@ export class DatasetFSProvider extends BaseProvider implements vscode.FileSystem
                 returnEtag: true,
                 stream: bufBuilder,
             });
-            const data: Uint8Array = bufBuilder.read() ?? new Uint8Array();
+            const data: Uint8Array = Buffer.from(resp.apiResponse.data);
             //if an entry does not exist for the dataset, create it
             if (!dsEntry) {
                 const uriInfo = FsAbstractUtils.getInfoForUri(uri, Profiles.getInstance());
@@ -476,7 +476,7 @@ export class DatasetFSProvider extends BaseProvider implements vscode.FileSystem
                 };
             } else {
                 dsEntry.data = data;
-                dsEntry.etag = resp.apiResponse.etag;
+                dsEntry.etag = Math.random().toString();
                 dsEntry.size = dsEntry.data.byteLength;
                 dsEntry.mtime = Date.now();
             }

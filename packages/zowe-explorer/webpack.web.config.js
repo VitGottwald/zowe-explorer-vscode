@@ -85,7 +85,7 @@ const config = (mode) => ({
             process: path.resolve(__dirname, "src/web/polyfills/process.js"),
         }),
         new NodePolyfillPlugin({
-            excludeAliases: ["crypto"],
+            excludeAliases: ["crypto", "_stream_readable"],
         }),
         // new webpack.BannerPlugin(fs.readFileSync("../../scripts/LICENSE_HEADER", "utf-8")),
         new ForkTsCheckerWebpackPlugin({
