@@ -1875,7 +1875,7 @@
     "test:integration": "cd __tests__/__integration__/bdd && wdio run ./wdio.conf.ts",
     "test:silent": "pnpm test:unit --reporters \"jest-silent-reporter\"",
     "test:unit": "jest \".*__tests__.*\\.unit\\.test\\.ts\" --coverage",
-    "vscode:prepublish": "pnpm clean:bundle && pnpm generateLocalization && webpack --mode production --devtool hidden-source-map",
+    "vscode:prepublish": "pnpm clean:bundle && pnpm generateLocalization && webpack --devtool hidden-source-map --config webpack.web.config.js",
     "package": "vsce package --no-dependencies && node ../../scripts/mv-pack.js vscode-extension-for-zowe vsix",
     "license": "node ../../scripts/updateLicenses.js",
     "watch": "concurrently \"pnpm watch:zowe-explorer\" \"pnpm watch:webviews\"",
