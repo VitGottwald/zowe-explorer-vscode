@@ -301,7 +301,7 @@ export class ProfilesUtils {
     public static async setupProfileInfo(): Promise<imperative.ProfileInfo> {
         ZoweLogger.trace("ProfilesUtils.getProfileInfo called.");
 
-        const hasSecureCredentialManagerEnabled: boolean = ProfilesUtils.checkDefaultCredentialManager();
+        const hasSecureCredentialManagerEnabled: boolean = false;
         if (hasSecureCredentialManagerEnabled) {
             const shouldCheckForCustomCredentialManagers = SettingsConfig.getDirectValue<boolean>(
                 Constants.SETTINGS_CHECK_FOR_CUSTOM_CREDENTIAL_MANAGERS
@@ -326,7 +326,7 @@ export class ProfilesUtils {
         }
 
         return new imperative.ProfileInfo("zowe", {
-            credMgrOverride: hasSecureCredentialManagerEnabled ? await ProfilesUtils.setupDefaultCredentialManager() : undefined,
+            // credMgrOverride: hasSecureCredentialManagerEnabled ? await ProfilesUtils.setupDefaultCredentialManager() : undefined,
         });
     }
 
