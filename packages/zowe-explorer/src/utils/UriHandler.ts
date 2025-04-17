@@ -10,7 +10,7 @@
  */
 
 import { commands, ProviderResult, Uri, UriHandler } from "vscode";
-import { ZoweScheme } from "../../../zowe-explorer-api/src";
+import { ZoweScheme } from "@zowe/zowe-explorer-api";
 import { DatasetFSProvider } from "../trees/dataset/DatasetFSProvider";
 import { UssFSProvider } from "../trees/uss/UssFSProvider";
 import { ZoweLogger } from "../tools/ZoweLogger";
