@@ -2,3 +2,12 @@ packages:
   - "packages/*"
   - "packages/zowe-explorer/src/webviews/"
   - "!**/test/**"
+overrides:
+  - "@zowe/imperative": "file:../zowe-cli/packages/imperative"
+  - "@zowe/core-for-zowe-sdk": "file:../zowe-cli/packages/core"
+  - "@zowe/zos-files-for-zowe-sdk": "file:../zowe-cli/packages/zosfiles"
+  - "@zowe/zos-jobs-for-zowe-sdk": "file:../zowe-cli/packages/zosjobs"
+  - "@zowe/zos-console-for-zowe-sdk": "file:../zowe-cli/packages/zosconsole"
+  - "@zowe/zos-tso-for-zowe-sdk": "file:../zowe-cli/packages/zostso"
+  - "@zowe/zos-uss-for-zowe-sdk": "file:../zowe-cli/packages/zosuss"
+  - "@zowe/zosmf-for-zowe-sdk": "file:../zowe-cli/packages/zosmf"
