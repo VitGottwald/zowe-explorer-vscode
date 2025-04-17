@@ -66,6 +66,9 @@ const config = (mode) => ({
                 use: [
                     {
                         loader: "esbuild-loader",
+                        options: {
+                            // target: "esnext",
+                        },
                     },
                 ],
             },

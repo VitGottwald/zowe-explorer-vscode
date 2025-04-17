@@ -215,7 +215,7 @@ export class USSActions {
             if (prof.profile.encoding) {
                 options.encoding = prof.profile.encoding;
             }
-            await ZoweExplorerApiRegister.getUssApi(prof).putContent(doc.fileName, ussName, options);
+            await ZoweExplorerApiRegister.getUssApi(prof).putContent(doc.fileName, ussName, options as any);
         } catch (e) {
             await AuthUtils.errorHandling(e, { apiType: ZoweExplorerApiType.Uss, profile: node.getProfile() });
         }

@@ -250,7 +250,7 @@ export class DatasetActions {
         const profile = node.getProfile();
         try {
             // Allocate the data set
-            await ZoweExplorerApiRegister.getMvsApi(profile).createDataSet(DatasetActions.typeEnum, dsName, {
+            await ZoweExplorerApiRegister.getMvsApi(profile).createDataSet(DatasetActions.typeEnum as any, dsName, {
                 responseTimeout: profile?.profile?.responseTimeout,
                 ...dsPropsForAPI,
             });
