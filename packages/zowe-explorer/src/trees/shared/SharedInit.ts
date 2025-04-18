@@ -328,68 +328,6 @@ export class SharedInit {
 
     public static watchConfigProfile(context: vscode.ExtensionContext): void {
         ZoweLogger.trace("shared.init.watchConfigProfile called.");
-        const watchers: vscode.FileSystemWatcher[] = [];
-        watchers.push(
-            vscode.workspace.createFileSystemWatcher(new vscode.RelativePattern(FileManagement.getZoweDir(), "{zowe.config,zowe.config.user}.json"))
-        );
-
-        const workspacePath = ZoweVsCodeExtension.workspaceRoot?.uri.fsPath;
-        if (workspacePath) {
-            watchers.push(vscode.workspace.createFileSystemWatcher(new vscode.RelativePattern(workspacePath, "{zowe.config,zowe.config.user}.json")));
-        }
-
-        context.subscriptions.push(...watchers);
-
-        watchers.forEach((watcher) => {
-            watcher.onDidCreate(
-                SharedUtils.debounce(() => {
-                    ZoweLogger.info(vscode.l10n.t("Team config file created, refreshing Zowe Explorer."));
-                    void SharedActions.refreshAll();
-                    ZoweExplorerApiRegister.getInstance().onProfilesUpdateEmitter.fire(Validation.EventType.CREATE);
-                }, 100) // eslint-disable-line no-magic-numbers
-            );
-            watcher.onDidDelete(
-                SharedUtils.debounce(() => {
-                    ZoweLogger.info(vscode.l10n.t("Team config file deleted, refreshing Zowe Explorer."));
-                    void SharedActions.refreshAll();
-                    ZoweExplorerApiRegister.getInstance().onProfilesUpdateEmitter.fire(Validation.EventType.DELETE);
-                }, 100) // eslint-disable-line no-magic-numbers
-            );
-            watcher.onDidChange(
-                SharedUtils.debounce(() => {
-                    ZoweLogger.info(vscode.l10n.t("Team config file updated, refreshing Zowe Explorer."));
-                    void SharedActions.refreshAll();
-                    ZoweExplorerApiRegister.getInstance().onProfilesUpdateEmitter.fire(Validation.EventType.UPDATE);
-                }, 100) // eslint-disable-line no-magic-numbers
-            );
-        });
-
-        try {
-            const zoweWatcher = imperative.EventOperator.getWatcher().subscribeUser(imperative.ZoweUserEvents.ON_VAULT_CHANGED, async () => {
-                ZoweLogger.info(vscode.l10n.t("Changes in the credential vault detected, refreshing Zowe Explorer."));
-                await ProfilesUtils.readConfigFromDisk();
-                await SharedActions.refreshAll();
-                ZoweExplorerApiRegister.getInstance().onVaultUpdateEmitter.fire(Validation.EventType.UPDATE);
-            });
-            context.subscriptions.push(new vscode.Disposable(zoweWatcher.close.bind(zoweWatcher)));
-        } catch (err) {
-            Gui.errorMessage("Unable to watch for vault changes. " + JSON.stringify(err));
-        }
-
-        try {
-            const zoweWatcher = imperative.EventOperator.getWatcher().subscribeShared(
-                imperative.ZoweSharedEvents.ON_CREDENTIAL_MANAGER_CHANGED,
-                async () => {
-                    ZoweLogger.info(vscode.l10n.t("Changes in credential management detected, refreshing Zowe Explorer."));
-                    await ProfilesUtils.setupProfileInfo();
-                    await SharedActions.refreshAll();
-                    ZoweExplorerApiRegister.getInstance().onCredMgrUpdateEmitter.fire(Validation.EventType.UPDATE);
-                }
-            );
-            context.subscriptions.push(new vscode.Disposable(zoweWatcher.close.bind(zoweWatcher)));
-        } catch (err) {
-            Gui.errorMessage("Unable to watch for credential manager changes. " + JSON.stringify(err));
-        }
     }
 
     public static initSubscribers(context: vscode.ExtensionContext, theProvider: IZoweTree<IZoweTreeNode>): void {

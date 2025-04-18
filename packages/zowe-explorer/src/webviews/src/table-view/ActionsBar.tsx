@@ -1,4 +1,4 @@
-import { Dispatch, Ref, useState } from "preact/hooks";
+import { Dispatch, useState } from "preact/hooks";
 import type { Table } from "@zowe/zowe-explorer-api";
 import { VSCodeButton, VSCodeTextField } from "@vscode/webview-ui-toolkit/react";
 import { GridApi } from "ag-grid-community";
@@ -9,7 +9,7 @@ import * as l10n from "@vscode/l10n";
 
 interface ActionsProps {
   actions: Table.Action[];
-  gridRef: Ref<any>;
+  gridRef: {current: {api: GridApi}};
   itemCount: number;
   selectionCount: number;
   title: string;
@@ -30,7 +30,7 @@ export const ActionsBar = (props: ActionsProps) => {
           key={`toggle-vis-${col}`}
           type="checkbox"
           onClick={(e: any) => {
-            const gridApi = props.gridRef.current.api as GridApi;
+            const gridApi = props.gridRef.current.api;
             const colVisibility = !visibleColumns.includes(col);
             gridApi.setColumnsVisible(
               [gridApi.getColumns()?.find((c) => c.getColDef().field === col || c.getColDef().headerName === col)!],

@@ -472,9 +472,7 @@ export class ProfilesUtils {
             fs.mkdirSync(settingsPath);
         }
 
-        if (!ProfilesUtils.checkDefaultCredentialManager()) {
-            await ProfilesUtils.disableCredentialManagement();
-        }
+        await ProfilesUtils.disableCredentialManagement();
 
         ProfilesUtils.writeOverridesFile();
         // set global variable of security value to existing override
