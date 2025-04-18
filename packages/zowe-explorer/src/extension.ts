@@ -50,10 +50,8 @@ export async function activate(context: vscode.ExtensionContext): Promise<ZoweEx
         }
     );
     SharedInit.registerCommonCommands(context, providers);
-    SharedInit.registerZosConsoleView(context);
     ZoweExplorerExtender.createInstance(providers.ds, providers.uss, providers.job);
 
-    SharedInit.watchConfigProfile(context);
     await SharedInit.watchForZoweButtonClick();
 
     return ZoweExplorerApiRegister.getInstance();
