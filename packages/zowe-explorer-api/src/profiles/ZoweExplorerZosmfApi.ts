@@ -55,6 +55,7 @@ export namespace ZoweExplorerZosmf {
                 } catch (error) {
                     // todo: initialize and use logging
                     imperative.Logger.getAppLogger().error(error as string);
+                    return undefined;
                 }
             }
             return ProfilesCache.getProfileSessionWithVscProxy(this.session);
