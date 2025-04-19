@@ -36,7 +36,7 @@ export enum ProfilesConvertStatus {
 }
 
 export class ProfilesUtils {
-    public static PROFILE_SECURITY: string | boolean = Constants.ZOWE_CLI_SCM;
+    public static PROFILE_SECURITY: string | boolean = false;
     private static noConfigDialogShown = false;
     private static mProfileInfo: imperative.ProfileInfo;
 
@@ -66,7 +66,7 @@ export class ProfilesUtils {
             const settingsFile = fs.readFileSync(settingsFilePath);
             const imperativeConfig = JSON.parse(settingsFile.toString());
             const credentialManagerOverride = imperativeConfig?.overrides[imperative.CredentialManagerOverride.CRED_MGR_SETTING_NAME];
-            if (typeof credentialManagerOverride === "string") {
+            if (["string", "boolean"].includes(typeof credentialManagerOverride)) {
                 return credentialManagerOverride;
             }
             return imperative.CredentialManagerOverride.DEFAULT_CRED_MGR_NAME;

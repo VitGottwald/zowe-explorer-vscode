@@ -1816,7 +1816,7 @@
           "default": "true"
         },
         "zowe.security.secureCredentialsEnabled": {
-          "default": true,
+          "default": false,
           "type": "boolean",
           "description": "%zowe.security.secureCredentialsEnabled%",
           "scope": "machine-overridable"

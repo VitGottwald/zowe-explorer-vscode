@@ -119,7 +119,7 @@ zenfs.writeFileSync(
     `
 {
   "overrides": {
-    "CredentialManager": "@zowe/cli"
+    "CredentialManager": false
   }
 }
     `
