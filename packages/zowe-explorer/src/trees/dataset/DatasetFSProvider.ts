@@ -40,6 +40,7 @@ import { AuthUtils } from "../../utils/AuthUtils";
 export class DatasetFSProvider extends BaseProvider implements vscode.FileSystemProvider {
     private static _instance: DatasetFSProvider;
     private constructor() {
+        // debugger;
         super();
         ZoweExplorerApiRegister.addFileSystemEvent(ZoweScheme.DS, this.onDidChangeFile);
         this.root = new DirEntry("");
@@ -334,11 +335,14 @@ export class DatasetFSProvider extends BaseProvider implements vscode.FileSystem
      * @param uri The URI that represents a new directory path
      */
     public createDirectory(uri: vscode.Uri): void {
+        debugger;
         const basename = path.posix.basename(uri.path);
         const parent = this._lookupParentDirectory(uri, false);
         if (parent.entries.has(basename)) {
             return;
         }
+        // debugger; // here the child node is created with the wrong profile (without credentials)
+        /* the funny part is that this._getInfoFromUri(uri) would have returned the updted profile */
         const profInfo =
             parent !== this.root
                 ? new DsEntryMetadata({
@@ -355,12 +359,12 @@ export class DatasetFSProvider extends BaseProvider implements vscode.FileSystem
         } else {
             const entry = new FilterEntry(basename);
             entry.metadata = profInfo;
-            parent.entries.set(entry.name, entry);
+            parent.entries.set(entry.name, entry); // this is where the new root profile entry is set !!!
         }
 
         parent.mtime = Date.now();
         parent.size += 1;
-        this._fireSoon(
+        this._fireSoon( // what is this for ???
             { type: vscode.FileChangeType.Changed, uri: uri.with({ path: path.posix.join(uri.path, "..") }) },
             { type: vscode.FileChangeType.Created, uri }
         );
@@ -376,6 +380,7 @@ export class DatasetFSProvider extends BaseProvider implements vscode.FileSystem
         options?: { editor?: vscode.TextEditor | null; isConflict?: boolean }
     ): Promise<FileEntry | null> {
         ZoweLogger.trace(`[DatasetFSProvider] fetchDatasetAtUri called with ${uri.toString()}`);
+        // debugger;
         let dsEntry = this._lookupAsFile(uri, { silent: true }) as DsEntry | undefined;
         const bufBuilder = new BufferBuilder();
         const metadata = dsEntry?.metadata ?? this._getInfoFromUri(uri);
@@ -624,6 +629,7 @@ export class DatasetFSProvider extends BaseProvider implements vscode.FileSystem
      * @returns Metadata for the URI that contains the profile instance and path
      */
     private _getInfoFromUri(uri: vscode.Uri): DsEntryMetadata {
+        // debugger; // here profiles cache is queried and DsEntryMetadata is created with profile in it !!!
         const uriInfo = FsAbstractUtils.getInfoForUri(uri, Profiles.getInstance());
         return new DsEntryMetadata({
             profile: uriInfo.profile,

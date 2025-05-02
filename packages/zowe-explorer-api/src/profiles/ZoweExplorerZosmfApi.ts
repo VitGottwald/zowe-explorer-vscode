@@ -250,10 +250,12 @@ export namespace ZoweExplorerZosmf {
      */
     export class MvsApi extends CommonApi implements MainframeInteraction.IMvs {
         public async dataSet(filter: string, options?: zosfiles.IListOptions): Promise<zosfiles.IZosFilesResponse> {
+            debugger;
             return zosfiles.List.dataSet(this.getSession(), filter, { responseTimeout: this.profile?.profile?.responseTimeout, ...options });
         }
 
         public allMembers(dataSetName: string, options?: zosfiles.IListOptions): Promise<zosfiles.IZosFilesResponse> {
+            debugger;
             return zosfiles.List.allMembers(this.getSession(), dataSetName, {
                 responseTimeout: this.profile?.profile?.responseTimeout,
                 ...options,
@@ -261,6 +263,7 @@ export namespace ZoweExplorerZosmf {
         }
 
         public getContents(dataSetName: string, options?: zosfiles.IDownloadSingleOptions): Promise<zosfiles.IZosFilesResponse> {
+            debugger;
             return zosfiles.Download.dataSet(this.getSession(), dataSetName, {
                 responseTimeout: this.profile?.profile?.responseTimeout,
                 ...options,

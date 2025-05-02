@@ -391,6 +391,7 @@ export class BaseProvider {
      * @returns The entry within the provider, or `undefined` if it doesn't exist
      */
     public lookup(uri: vscode.Uri, silent: boolean = false): IFileSystemEntry | undefined {
+        // debugger;
         if (uri.path === "/" || uri.path === ".") {
             return this.root;
         }

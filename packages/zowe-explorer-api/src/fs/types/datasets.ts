@@ -57,6 +57,7 @@ export class DsEntryMetadata implements EntryMetadata {
     public path: string;
 
     public constructor(metadata: EntryMetadata) {
+        debugger;
         this.profile = metadata.profile;
         this.path = metadata.path;
     }

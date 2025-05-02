@@ -32,6 +32,8 @@ import { ProfilesUtils } from "./utils/ProfilesUtils";
  * @returns {Promise<ZoweExplorerApiRegister>}
  */
 export async function activate(context: vscode.ExtensionContext): Promise<ZoweExplorerApiRegister> {
+    await new Promise(resolve => setTimeout(resolve(), 5000)); // wait so that dev tools get initialized
+    debugger; // and the execution stops right at the beginning
     ZoweLocalStorage.initializeZoweLocalStorage(context.globalState, context.workspaceState);
     await SharedInit.initZoweLogger(context);
 

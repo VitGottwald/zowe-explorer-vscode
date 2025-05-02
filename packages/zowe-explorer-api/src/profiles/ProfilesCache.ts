@@ -71,6 +71,7 @@ export class ProfilesCache {
      * @returns {IProfileLoaded}
      */
     public loadNamedProfile(name: string, type?: string): imperative.IProfileLoaded {
+        // debugger; // here a profile is retrieved from the cache
         for (const profile of this.allProfiles) {
             if (profile.name === name && (!type || profile.type === type)) {
                 return profile;
@@ -98,6 +99,7 @@ export class ProfilesCache {
         }
     }
 
+    // this is where the cached version of a profile is updated !!!
     public async updateCachedProfile(
         profileLoaded: imperative.IProfileLoaded,
         profileNode?: Types.IZoweNodeType,

@@ -34,6 +34,7 @@ export class ZoweTreeProvider<T extends IZoweTreeNode> {
     protected validProfile: number = -1;
 
     public constructor(protected persistenceSchema: PersistenceSchemaEnum, public mFavoriteSession: IZoweTreeNode) {
+        // debugger;
         this.mHistory = new ZowePersistentFilters(this.persistenceSchema);
     }
 
@@ -189,6 +190,7 @@ export class ZoweTreeProvider<T extends IZoweTreeNode> {
         ZoweLogger.trace("ZoweTreeProvider.addSession called.");
         const treeProviders = opts.addToAllTrees ? Object.values(SharedTreeProviders.providers) : [this];
         const isUsingAutomaticProfileValidation: boolean = SettingsConfig.getDirectValue(Constants.SETTINGS_AUTOMATIC_PROFILE_VALIDATION);
+        // debugger; // here the loadProfileByPersistedProfile is selected on initial load
         for (const treeProvider of treeProviders) {
             if (opts.sessionName) {
                 await this.loadProfileBySessionName(opts.sessionName, treeProvider, isUsingAutomaticProfileValidation);
@@ -256,11 +258,17 @@ export class ZoweTreeProvider<T extends IZoweTreeNode> {
         }
     }
 
+    // this method does not merely check it also
+    // - prompts for the credentials
+    // - mutates the profile by adding credentials into it
+    // - and the object that is mutated is THE instance from profiles cache !!!
     public async checkCurrentProfile(node: IZoweTreeNode): Promise<Validation.IValidationProfile> {
         ZoweLogger.trace("ZoweTreeProvider.checkCurrentProfile called.");
+        // debugger; // this is where profile is read from (and later mutated)
         const profile = node.getProfile();
         const profileName = profile.name ?? node.getProfileName();
         const profileStatus = await Profiles.getInstance().checkCurrentProfile(profile);
+        // the call above mutates `profile` and add into it username and password
         const tokenUnusedOrValid = await ZoweTreeProvider.checkJwtTokenForProfile(profileName);
         if (!tokenUnusedOrValid) {
             // Mark profile as inactive if user dismissed "token expired/login" prompt
@@ -386,12 +394,13 @@ export class ZoweTreeProvider<T extends IZoweTreeNode> {
         profileType: string,
         isUsingAutomaticProfileValidation: boolean
     ): Promise<void> {
+        debugger; // fetch profiles
         const profiles: imperative.IProfileLoaded[] = Profiles.getInstance().getProfiles(profileType);
         for (const profile of profiles) {
             const existingSessionNode = treeProvider.mSessionNodes.find((node) => node.label.toString().trim() === profile.name);
             const sessionInHistory = treeProvider.getSessions().some((session) => session?.trim() === profile.name);
             if (!existingSessionNode && sessionInHistory) {
-                await treeProvider.addSingleSession(profile);
+                await treeProvider.addSingleSession(profile); // this is where a new "session" is created in dataset tree if this "session" exists in memento
                 for (const node of treeProvider.mSessionNodes) {
                     if (node.label !== vscode.l10n.t("Favorites") && node.getProfileName() === profile.name) {
                         SharedActions.resetValidationSettings(node, isUsingAutomaticProfileValidation);
@@ -400,6 +409,9 @@ export class ZoweTreeProvider<T extends IZoweTreeNode> {
                 }
             }
         }
+        // this is where a new session is added based on "default" profile
+        //   the profile is read by a call to Profiles.getInstance().getDefaultProfile(profileType)
+        //   getDefaultProfile reads the profile from .defaultProfileByType with default type = "zosmf"
         await TreeViewUtils.addDefaultSession(treeProvider, profileType);
     }
 }

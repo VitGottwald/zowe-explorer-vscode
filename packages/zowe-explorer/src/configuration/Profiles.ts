@@ -134,13 +134,14 @@ export class Profiles extends ProfilesCache {
             let values: string[];
             try {
                 values = await Profiles.getInstance().promptCredentials(theProfile);
+                // debugger; // here the response from user comes back
             } catch (error) {
                 await AuthUtils.errorHandling(error, { profile: theProfile });
                 return profileStatus;
             }
             if (values) {
-                theProfile.profile.user = values[0];
-                theProfile.profile.password = values[1];
+                theProfile.profile.user = values[0];     // this mutates the profile with new user !!!
+                theProfile.profile.password = values[1];     // this mutates the profile with new password !!!
             } else {
                 this.validProfile = Validation.ValidationType.INVALID;
                 return { ...profileStatus, status: "inactive" };
@@ -576,6 +577,7 @@ export class Profiles extends ProfilesCache {
     }
 
     public async promptCredentials(profile: string | imperative.IProfileLoaded, rePrompt?: boolean): Promise<string[]> {
+        // debugger;
         ZoweLogger.trace("Profiles.promptCredentials called.");
         const profilename = typeof profile === "string" ? profile : profile.name;
         const userInputBoxOptions: vscode.InputBoxOptions = {

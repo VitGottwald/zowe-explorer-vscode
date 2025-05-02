@@ -167,6 +167,7 @@ export class ProfilesUtils {
      */
     public static async disableCredentialManagement(): Promise<void> {
         ZoweLogger.trace("ProfilesUtils.disableCredentialManagement called.");
+        // debugger; // check if `zowe.security.secureCredentialsEnabled`
         const settingEnabled: boolean = SettingsConfig.getDirectValue(Constants.SETTINGS_SECURE_CREDENTIALS_ENABLED, true);
         if (settingEnabled) {
             ProfilesUtils.PROFILE_SECURITY = false;

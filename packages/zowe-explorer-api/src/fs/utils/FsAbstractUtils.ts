@@ -31,6 +31,23 @@ export class FsAbstractUtils {
 
         // Load profile that matches the parsed name
         const profileName = uri.path.startsWith("/") ? uri.path.substring(1, startPathPos) : uri.path.substring(0, startPathPos);
+        // debugger; // here is the mapping from uri to profile
+        // why the hell do they test for the whole profilesCache?.loadNamedProfile ???
+        // looks like lack of confidence in the types
+        // also why is the check not the first line in the fucntion? 
+        //   if profilesCache not provided the return value is null
+        // then the next question is why even bother calling the function without profilesCache
+        //   we know the answer is null, so we do not need to call it at all and just assign the 
+        //   return variable on the caller site `null`
+        // then the next question is why even have the profilesCache as optional
+        //   just make it mandatory and get rid of the check
+        // actually doing just this (removing the optionality of profilesCache) will allow for a quick refactor
+        // another suspistion why this pattern is here is that the code base is not strictly typed
+        //   so the type checker does not distinguish between proper type and null value
+        //   that allows the developer to think they have an instance where
+        //   in some cases they will actually have a null
+        //   - easy for passing CI today
+        //   - one they things will explode ...
         const profile = profilesCache?.loadNamedProfile ? profilesCache.loadNamedProfile(profileName) : null;
 
         return {

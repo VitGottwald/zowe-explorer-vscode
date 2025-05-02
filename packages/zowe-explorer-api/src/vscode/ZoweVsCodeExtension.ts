@@ -81,15 +81,26 @@ export class ZoweVsCodeExtension {
             return undefined;
         }
 
+        debugger; // this is where the profile to be checked is selected
         const loadProfile = options.sessionName ? await cache.getLoadedProfConfig(options.sessionName) : options.profile;
         const loadSession = loadProfile?.profile as imperative.ISession;
 
         if (loadProfile == null || loadSession == null) {
             return undefined;
         }
+        debugger; // this is where credentials get prompted _and_ updated (for the 1st time)
         const creds = await ZoweVsCodeExtension.promptUserPass({ session: loadSession, ...options });
 
+        debugger; // this is where credentials are updated !!! (for the 2nd time)
         if (creds && creds.length > 0) {
+            const p = __webpack_module_cache__['./src/configuration/Profiles.ts'].exports.Profiles.getInstance();
+            // to see where else the profile (options.session) we are checking is stored:
+              globalThis.tmp_p1 = p.loadNamedProfile('zosmf').profile // ProfilesCache.allProfiles
+              globalThis.tmp_p2 = p.getProfiles()[0].profile // ProfilesCache.profilesByType.get('zosmf')
+              globalThis.tmp_p3 = p.getDefaultProfile().profile // ProfilesCache.defaultProfileByType.get('zosmf')
+              const ds = __webpack_module_cache__['./src/trees/shared/SharedTreeProviders.ts'].exports.SharedTreeProviders.providers.ds;
+              globalThis.tmp_p4 = ds.mSessionNodes.find(node=>node.label === 'zosmf').profile.profile // DatasetTree.mSessionNodes
+
             loadProfile.profile.user = loadSession.user = creds[0];
             loadProfile.profile.password = loadSession.password = creds[1];
 
@@ -324,7 +335,9 @@ export class ZoweVsCodeExtension {
         return save;
     }
 
+    // promptUserPass  this is where gui prompts are displayed
     private static async promptUserPass(options: PromptCredentialsOptions.UserPassOptions): Promise<string[] | undefined> {
+        debugger; // this is where credentials are prompted for 
         let newUser = options.session.user;
         if (!newUser || options.rePrompt) {
             newUser = await Gui.showInputBox({
@@ -350,10 +363,12 @@ export class ZoweVsCodeExtension {
                 ...(options.passwordInputBoxOptions ?? {}),
             });
         }
+        // debugger; // right after password prompot !!!
         if (!newPass || (options.rePrompt && newPass === "")) {
             return undefined;
         }
 
+        debugger; // this is where credentials are updated !!!
         options.session.user = newUser.trim();
         options.session.password = newPass.trim();
         return [options.session.user, options.session.password];

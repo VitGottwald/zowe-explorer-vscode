@@ -134,6 +134,7 @@ export class DatasetTree extends ZoweTreeProvider<IZoweDatasetTreeNode> implemen
     }
     public async filterPrompt(node: IZoweDatasetTreeNode): Promise<void> {
         ZoweLogger.trace("DatasetTree.filterPrompt called.");
+        debugger; // this is where dataset search filter is prompted
         await this.datasetFilterPrompt(node);
     }
 
@@ -780,6 +781,7 @@ export class DatasetTree extends ZoweTreeProvider<IZoweDatasetTreeNode> implemen
 
     public getSessions(): string[] {
         ZoweLogger.trace("DatasetTree.getSessions called.");
+        // debugger; // !!!!!
         return this.mHistory.getSessions();
     }
 
@@ -995,11 +997,13 @@ export class DatasetTree extends ZoweTreeProvider<IZoweDatasetTreeNode> implemen
     public async datasetFilterPrompt(node: IZoweDatasetTreeNode): Promise<void> {
         ZoweLogger.trace("DatasetTree.datasetFilterPrompt called.");
         let pattern: string;
+        // check current profile before listing datasets
         await this.checkCurrentProfile(node);
         const sessionNode = node;
 
         if (Profiles.getInstance().validProfile !== Validation.ValidationType.INVALID) {
             if (SharedContext.isSessionNotFav(node)) {
+                // debugger;
                 ZoweLogger.debug(vscode.l10n.t("Prompting the user for a data set pattern"));
                 if (this.mHistory.getSearchHistory().length > 0) {
                     const createPick = new FilterDescriptor(DatasetTree.defaultDialogText);
