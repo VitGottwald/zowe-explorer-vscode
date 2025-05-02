@@ -148,7 +148,7 @@ export class ProfilesCache {
      * @returns {IProfileLoaded[]}
      */
     public getProfiles(type = "zosmf"): imperative.IProfileLoaded[] {
-        return this.profilesByType.get(type) ?? [];
+        return this.allProfiles;
     }
 
     /**

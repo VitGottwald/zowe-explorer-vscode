@@ -386,9 +386,7 @@ export class ZoweTreeProvider<T extends IZoweTreeNode> {
         profileType: string,
         isUsingAutomaticProfileValidation: boolean
     ): Promise<void> {
-        const profiles: imperative.IProfileLoaded[] = profileType
-            ? await Profiles.getInstance().fetchAllProfilesByType(profileType)
-            : await Profiles.getInstance().fetchAllProfiles();
+        const profiles: imperative.IProfileLoaded[] = Profiles.getInstance().getProfiles(profileType);
         for (const profile of profiles) {
             const existingSessionNode = treeProvider.mSessionNodes.find((node) => node.label.toString().trim() === profile.name);
             const sessionInHistory = treeProvider.getSessions().some((session) => session?.trim() === profile.name);
