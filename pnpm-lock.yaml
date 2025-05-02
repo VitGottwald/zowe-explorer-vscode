@@ -151,11 +151,11 @@ importers:
         specifier: ^0.0.35
         version: 0.0.35
       '@zenfs/core':
-        specifier: ^1.8.8
-        version: 1.11.4
+        specifier: ^2.2.0
+        version: 2.2.0
       '@zenfs/dom':
-        specifier: ^1.1.3
-        version: 1.1.6(@zenfs/core@1.11.4)(utilium@1.10.1)
+        specifier: ^1.1.7
+        version: 1.1.7(@zenfs/core@2.2.0)(kerium@1.3.5)(utilium@2.3.3)
       '@zowe/core-for-zowe-sdk':
         specifier: file:../../../zowe-cli/packages/core
         version: file:../zowe-cli/packages/core
@@ -237,6 +237,9 @@ importers:
       util:
         specifier: ^0.12.5
         version: 0.12.5
+      utilium:
+        specifier: ^2.3.3
+        version: 2.3.3
     devDependencies:
       '@cucumber/cucumber':
         specifier: 9.5.1
@@ -300,7 +303,7 @@ importers:
         version: 19.0.5
       ts-node:
         specifier: ^10.9.2
-        version: 10.9.2(@types/node@22.14.1)(typescript@5.8.3)
+        version: 10.9.2(@types/node@22.15.3)(typescript@5.8.3)
       wdio-vscode-service:
         specifier: ^6.1.1
         version: 6.1.3(webdriverio@8.44.1(encoding@0.1.13))
@@ -420,19 +423,19 @@ importers:
     devDependencies:
       '@preact/preset-vite':
         specifier: ^2.5.0
-        version: 2.10.1(@babel/core@7.26.10)(preact@10.26.5)(vite@4.5.13(@types/node@22.14.1)(terser@5.39.0))
+        version: 2.10.1(@babel/core@7.26.10)(preact@10.26.5)(vite@4.5.13(@types/node@22.15.3)(terser@5.39.0))
       typescript:
         specifier: ^5.3.3
         version: 5.8.3
       vite:
         specifier: ^4.5.5
-        version: 4.5.13(@types/node@22.14.1)(terser@5.39.0)
+        version: 4.5.13(@types/node@22.15.3)(terser@5.39.0)
       vite-plugin-checker:
         specifier: ^0.6.4
-        version: 0.6.4(eslint@8.57.1)(optionator@0.9.4)(typescript@5.8.3)(vite@4.5.13(@types/node@22.14.1)(terser@5.39.0))
+        version: 0.6.4(eslint@8.57.1)(optionator@0.9.4)(typescript@5.8.3)(vite@4.5.13(@types/node@22.15.3)(terser@5.39.0))
       vite-plugin-static-copy:
         specifier: ^0.17.1
-        version: 0.17.1(vite@4.5.13(@types/node@22.14.1)(terser@5.39.0))
+        version: 0.17.1(vite@4.5.13(@types/node@22.15.3)(terser@5.39.0))
 
 packages:
 
@@ -1485,6 +1488,9 @@ packages:
   '@types/node@22.14.1':
     resolution: {integrity: sha512-u0HuPQwe/dHrItgHHpmw3N2fYCR6x4ivMNbPHRkBVP4CvN+kiRrKHWk3i8tXiO/joPwXLMYvF9TTF0eqgHIuOw==}
 
+  '@types/node@22.15.3':
+    resolution: {integrity: sha512-lX7HFZeHf4QG/J7tBZqrCAXwz9J5RD56Y6MpP0eJkka8p+K0RY/yBTW7CYFJ4VGCclxqOLKmiGP5juQc6MKgcw==}
+
   '@types/normalize-package-data@2.4.4':
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
 
@@ -1886,17 +1892,18 @@ packages:
   '@xtuc/long@4.2.2':
     resolution: {integrity: sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==}
 
-  '@zenfs/core@1.11.4':
-    resolution: {integrity: sha512-jFihhedKitw1X9rlImtaca4KTs1Xk9awo4GxUemqt2ucE1jLi10lyRfFFbiYXZsFDkuCWGHwEQwv7BeDIEXMbQ==}
+  '@zenfs/core@2.2.0':
+    resolution: {integrity: sha512-OF/Y+Tbj3kuTowiahBtVw13+wHgAsqhL1spkPDnWxFlTrnWEgWhBaDbAeC/0pbH1zQBQUBrvU2bKmguYdMVl4g==}
     engines: {node: '>= 18'}
     hasBin: true
 
-  '@zenfs/dom@1.1.6':
-    resolution: {integrity: sha512-7SBTWgA0esuEv/TE+N/xk6W/XJf8uBF+LhlPNHQdXds0H7aOy/UYsWv/8glvARe+meDMMidoeWFLzUWoMXfjlA==}
+  '@zenfs/dom@1.1.7':
+    resolution: {integrity: sha512-16FlIIBCeWEGr/As+1eRLZw0w2IDQAbXiVzFQqrfw7R2yd60jUpeiT6JYzsyzX2jChDcNg3sQ5cvnj2hPZgs8w==}
     engines: {node: '>= 18'}
     peerDependencies:
-      '@zenfs/core': ^2.0.0
-      utilium: ^1.9.0
+      '@zenfs/core': ^2.1.0
+      kerium: ^1.3.4
+      utilium: ^2.0.0
 
   '@zip.js/zip.js@2.7.60':
     resolution: {integrity: sha512-vA3rLyqdxBrVo1FWSsbyoecaqWTV+vgPRf0QKeM7kVDG0r+lHUqd7zQDv1TO9k4BcAoNzNDSNrrel24Mk6addA==}
@@ -4549,6 +4556,9 @@ packages:
   jws@3.2.2:
     resolution: {integrity: sha512-YHlZCB6lMTllWDtSPHz/ZXTsi8S00usEV6v1tjq8tOUZzw7DpSDWVXjXDre6ed1w/pd495ODpHZYSdkRTsa0HA==}
 
+  kerium@1.3.5:
+    resolution: {integrity: sha512-V4hITm/a5l9SyPCPg//ENmbs24hHWVtEOQlyQaZX9bH/WBVY4kXwXaWPSobWGpNNOMOwe1FU/WgTd5dC/bIDKA==}
+
   keytar@7.9.0:
     resolution: {integrity: sha512-VPD8mtVtm5JNtA2AErl6Chp06JBfy7diFQ7TQQhdpWOl6MrCRB+eRbvAZUsbGQS9kiMq0coJsy0W0vHpDCkWsQ==}
 
@@ -4849,6 +4859,9 @@ packages:
     resolution: {integrity: sha512-UERzLsxzllchadvbPs5aolHh65ISpKpM+ccLbOJ8/vvpBKmAWf+la7dXFy7Mr0ySHbdHrFv5kGFCUHHe6GFEmw==}
     engines: {node: '>= 4.0.0'}
 
+  memium@0.2.0:
+    resolution: {integrity: sha512-BFNZHfk+zIFWmZ3zMr50S3KXVvw53E/kzlPy48aw9c493XyH8u13c3P6vufKj150P/8Qtre5sxbwfNWXkLUXYA==}
+
   merge-stream@2.0.0:
     resolution: {integrity: sha512-abv/qOcuPfk3URPfDzmZU1LKmuw8kT+0nIHvKrKgFrwifol/doWcdA4ZqsWQ8ENrFKkd67Mfpo/LovbIUsbt3w==}
 
@@ -5101,6 +5114,7 @@ packages:
   node-domexception@1.0.0:
     resolution: {integrity: sha512-/jKZoMpw0F8GRwl4/eLROPA3cfcXtLApP0QzLmUT/HuPCZWyB7IY9ZrMeKw2O/nFIqPQB3PVM9aYm0F312AXDQ==}
     engines: {node: '>=10.5.0'}
+    deprecated: Use your platform's native DOMException instead
 
   node-fetch@2.7.0:
     resolution: {integrity: sha512-c4FRfUm/dbcWZ7U+1Wq0AwCyFL+3nt2bEw05wfxSz+DWpWsitgmSgYmy2dQdWyKC1694ELPqMs/YzUSNozLt8A==}
@@ -6728,8 +6742,8 @@ packages:
   util@0.12.5:
     resolution: {integrity: sha512-kZf/K6hEIrWHI6XqOFUiiMa+79wE/D8Q+NCNAWclkyg3b4d2k7s0QGepNjiABc+aR3N1PAyHL7p6UcLY6LmrnA==}
 
-  utilium@1.10.1:
-    resolution: {integrity: sha512-GQINDTb/ocyz4acQj3GXAe0wipYxws6L+9ouqaq10KlInTk9DGvW9TJd0pYa/Xu3cppNnZuB4T/sBuSXpcN2ng==}
+  utilium@2.3.3:
+    resolution: {integrity: sha512-uk/9WFeSzSSNoKIVtBJvc+VhAX8MTyhp4HTM7L4DuW31D+DqPE8T+nPkIxG/Ae/sMplCn8X7CC3r5WxfdMaoFw==}
 
   uuid@10.0.0:
     resolution: {integrity: sha512-8XkAphELsDnEGrDxUOHB3RGvXz6TeuYSGEZBOjtTtPm2lwhGBjLgOzLHB63IUWfBpNucQjND6d3AOudO+H3RWQ==}
@@ -8177,17 +8191,17 @@ snapshots:
 
   '@popperjs/core@2.11.8': {}
 
-  '@preact/preset-vite@2.10.1(@babel/core@7.26.10)(preact@10.26.5)(vite@4.5.13(@types/node@22.14.1)(terser@5.39.0))':
+  '@preact/preset-vite@2.10.1(@babel/core@7.26.10)(preact@10.26.5)(vite@4.5.13(@types/node@22.15.3)(terser@5.39.0))':
     dependencies:
       '@babel/core': 7.26.10
       '@babel/plugin-transform-react-jsx': 7.25.9(@babel/core@7.26.10)
       '@babel/plugin-transform-react-jsx-development': 7.25.9(@babel/core@7.26.10)
-      '@prefresh/vite': 2.4.7(preact@10.26.5)(vite@4.5.13(@types/node@22.14.1)(terser@5.39.0))
+      '@prefresh/vite': 2.4.7(preact@10.26.5)(vite@4.5.13(@types/node@22.15.3)(terser@5.39.0))
       '@rollup/pluginutils': 4.2.1
       babel-plugin-transform-hook-names: 1.0.2(@babel/core@7.26.10)
       debug: 4.4.0(supports-color@8.1.1)
       kolorist: 1.8.0
-      vite: 4.5.13(@types/node@22.14.1)(terser@5.39.0)
+      vite: 4.5.13(@types/node@22.15.3)(terser@5.39.0)
       vite-prerender-plugin: 0.5.8
     transitivePeerDependencies:
       - preact
@@ -8201,7 +8215,7 @@ snapshots:
 
   '@prefresh/utils@1.2.0': {}
 
-  '@prefresh/vite@2.4.7(preact@10.26.5)(vite@4.5.13(@types/node@22.14.1)(terser@5.39.0))':
+  '@prefresh/vite@2.4.7(preact@10.26.5)(vite@4.5.13(@types/node@22.15.3)(terser@5.39.0))':
     dependencies:
       '@babel/core': 7.26.10
       '@prefresh/babel-plugin': 0.5.1
@@ -8209,7 +8223,7 @@ snapshots:
       '@prefresh/utils': 1.2.0
       '@rollup/pluginutils': 4.2.1
       preact: 10.26.5
-      vite: 4.5.13(@types/node@22.14.1)(terser@5.39.0)
+      vite: 4.5.13(@types/node@22.15.3)(terser@5.39.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -8397,6 +8411,10 @@ snapshots:
     dependencies:
       undici-types: 6.21.0
 
+  '@types/node@22.15.3':
+    dependencies:
+      undici-types: 6.21.0
+
   '@types/normalize-package-data@2.4.4': {}
 
   '@types/parse-json@4.0.2': {}
@@ -8445,7 +8463,7 @@ snapshots:
 
   '@types/yauzl@2.10.3':
     dependencies:
-      '@types/node': 20.17.30
+      '@types/node': 22.14.1
     optional: true
 
   '@typescript-eslint/eslint-plugin@5.62.0(@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.8.3))(eslint@8.57.1)(typescript@5.8.3)':
@@ -9038,18 +9056,21 @@ snapshots:
 
   '@xtuc/long@4.2.2': {}
 
-  '@zenfs/core@1.11.4':
+  '@zenfs/core@2.2.0':
     dependencies:
-      '@types/node': 22.14.1
+      '@types/node': 22.15.3
       buffer: 6.0.3
       eventemitter3: 5.0.1
+      kerium: 1.3.5
+      memium: 0.2.0
       readable-stream: 4.7.0
-      utilium: 1.10.1
+      utilium: 2.3.3
 
-  '@zenfs/dom@1.1.6(@zenfs/core@1.11.4)(utilium@1.10.1)':
+  '@zenfs/dom@1.1.7(@zenfs/core@2.2.0)(kerium@1.3.5)(utilium@2.3.3)':
     dependencies:
-      '@zenfs/core': 1.11.4
-      utilium: 1.10.1
+      '@zenfs/core': 2.2.0
+      kerium: 1.3.5
+      utilium: 2.3.3
 
   '@zip.js/zip.js@2.7.60': {}
 
@@ -12345,6 +12366,10 @@ snapshots:
       jwa: 1.4.1
       safe-buffer: 5.2.1
 
+  kerium@1.3.5:
+    dependencies:
+      utilium: 2.3.3
+
   keytar@7.9.0:
     dependencies:
       node-addon-api: 4.3.0
@@ -12694,6 +12719,11 @@ snapshots:
   memfs@3.5.3:
     dependencies:
       fs-monkey: 1.0.6
+
+  memium@0.2.0:
+    dependencies:
+      kerium: 1.3.5
+      utilium: 2.3.3
 
   merge-stream@2.0.0: {}
 
@@ -14523,14 +14553,14 @@ snapshots:
       yn: 3.1.1
     optional: true
 
-  ts-node@10.9.2(@types/node@22.14.1)(typescript@5.8.3):
+  ts-node@10.9.2(@types/node@22.15.3)(typescript@5.8.3):
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
       '@tsconfig/node10': 1.0.11
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.4
-      '@types/node': 22.14.1
+      '@types/node': 22.15.3
       acorn: 8.14.1
       acorn-walk: 8.3.4
       arg: 4.1.3
@@ -14743,7 +14773,7 @@ snapshots:
       is-typed-array: 1.1.15
       which-typed-array: 1.1.19
 
-  utilium@1.10.1:
+  utilium@2.3.3:
     dependencies:
       eventemitter3: 5.0.1
     optionalDependencies:
@@ -14780,7 +14810,7 @@ snapshots:
       core-util-is: 1.0.2
       extsprintf: 1.4.1
 
-  vite-plugin-checker@0.6.4(eslint@8.57.1)(optionator@0.9.4)(typescript@5.8.3)(vite@4.5.13(@types/node@22.14.1)(terser@5.39.0)):
+  vite-plugin-checker@0.6.4(eslint@8.57.1)(optionator@0.9.4)(typescript@5.8.3)(vite@4.5.13(@types/node@22.15.3)(terser@5.39.0)):
     dependencies:
       '@babel/code-frame': 7.26.2
       ansi-escapes: 4.3.2
@@ -14793,7 +14823,7 @@ snapshots:
       semver: 7.7.1
       strip-ansi: 6.0.1
       tiny-invariant: 1.3.3
-      vite: 4.5.13(@types/node@22.14.1)(terser@5.39.0)
+      vite: 4.5.13(@types/node@22.15.3)(terser@5.39.0)
       vscode-languageclient: 7.0.0
       vscode-languageserver: 7.0.0
       vscode-languageserver-textdocument: 1.0.12
@@ -14803,13 +14833,13 @@ snapshots:
       optionator: 0.9.4
       typescript: 5.8.3
 
-  vite-plugin-static-copy@0.17.1(vite@4.5.13(@types/node@22.14.1)(terser@5.39.0)):
+  vite-plugin-static-copy@0.17.1(vite@4.5.13(@types/node@22.15.3)(terser@5.39.0)):
     dependencies:
       chokidar: 3.6.0
       fast-glob: 3.3.3
       fs-extra: 11.3.0
       picocolors: 1.1.1
-      vite: 4.5.13(@types/node@22.14.1)(terser@5.39.0)
+      vite: 4.5.13(@types/node@22.15.3)(terser@5.39.0)
 
   vite-prerender-plugin@0.5.8:
     dependencies:
@@ -14820,13 +14850,13 @@ snapshots:
       source-map: 0.7.4
       stack-trace: 1.0.0-pre2
 
-  vite@4.5.13(@types/node@22.14.1)(terser@5.39.0):
+  vite@4.5.13(@types/node@22.15.3)(terser@5.39.0):
     dependencies:
       esbuild: 0.18.20
       postcss: 8.5.3
       rollup: 3.29.5
     optionalDependencies:
-      '@types/node': 22.14.1
+      '@types/node': 22.15.3
       fsevents: 2.3.3
       terser: 5.39.0
 
