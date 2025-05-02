@@ -381,14 +381,6 @@ export class ProfilesCache {
         };
     }
 
-    public static async convertV1ProfToConfig(
-        profileInfo: imperative.ProfileInfo,
-        deleteV1Profs: boolean = false
-    ): Promise<imperative.IConvertV1ProfResult> {
-        const convertResult = await imperative.ConvertV1Profiles.convert({ deleteV1Profs, profileInfo });
-        return convertResult;
-    }
-
     public static getProfileSessionWithVscProxy(session: imperative.Session): imperative.Session {
         const VsCodeProxySettings = VscSettings.getVsCodeProxySettings();
         if (session.ISession) {
